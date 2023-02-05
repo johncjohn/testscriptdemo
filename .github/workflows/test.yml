@@ -1,0 +1,21 @@
+name: Test
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Build and run tests
+      uses: docker://calculator-app
+      env:
+        DOCKER_HOST: tcp://localhost:2375
+        DOCKER_DRIVER: overlay2
+      run: ./run_tests.sh
